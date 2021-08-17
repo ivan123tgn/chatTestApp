@@ -3,11 +3,11 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../auth.service";
 
 @Component({
-  selector: 'app-login-form',
-  templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.css']
+  selector: 'app-reg-form',
+  templateUrl: './reg-form.component.html',
+  styleUrls: ['./reg-form.component.css']
 })
-export class LoginFormComponent implements OnInit {
+export class RegFormComponent implements OnInit {
 
   form: FormGroup;
 
@@ -16,6 +16,7 @@ export class LoginFormComponent implements OnInit {
     private auth: AuthService) {
 
     this.form = fb.group({
+      name: ['', [Validators.required]],
       email: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
@@ -25,8 +26,8 @@ export class LoginFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  signIn() {
-    this.auth.login(this.form.value.email, this.form.value.password);
+  signUp() {
+    this.auth.mailPasswordReg(this.form.value.email, this.form.value.password);
   }
 
 }

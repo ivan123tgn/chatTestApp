@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "chat-test-app-b3a6e": {
+      "hosting": {
+        "chatTestApp": [
+          "chat-test-app-b3a6e"
+        ]
+      }
+    }
+  }
+}

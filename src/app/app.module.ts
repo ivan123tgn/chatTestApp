@@ -7,6 +7,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthModule} from './auth/auth.module';
 
+import { AngularFireModule } from '@angular/fire';
+import {environment} from "../environments/environment";
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 const routes: Routes = [
   {
     path: 'chat',
@@ -15,10 +20,6 @@ const routes: Routes = [
   {
     path: '**',
     redirectTo: '/'
-  },
-  {
-    path: '',
-    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
   }
 ];
 
@@ -30,7 +31,10 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
-    AuthModule.forRoot()
+    AuthModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebase),
+    StoreModule.forRoot({}, {}),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]
