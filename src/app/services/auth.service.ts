@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import {AngularFireAuth} from "@angular/fire/auth";
 import {Router} from "@angular/router";
+import {Store} from "@ngrx/store";
+import {login} from "../auth/auth.actions";
+import {AuthState} from "../auth/reducers";
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +11,8 @@ import {Router} from "@angular/router";
 export class AuthService {
 
   constructor(private angularFireAuth: AngularFireAuth,
-              private router: Router) { }
+              private router: Router,
+              private store: Store<AuthState>) { }
 
   mailPasswordReg(email: string, password: string) {
     this.angularFireAuth.createUserWithEmailAndPassword(email, password)
@@ -22,7 +26,12 @@ export class AuthService {
 
   async login(email: string, password: string) {
     const authResult = await this.angularFireAuth.signInWithEmailAndPassword(email, password)
-      .then(() => this.router.navigate(['/chat']))
+      .then((user) => {
+        console.log(user);
+        const userId = user.user?.uid;
+        this.store.dispatch(login({user: userId}));
+        this.router.navigate(['/chat'])
+      })
       .catch((err) => console.log(err.message));
   }
 }

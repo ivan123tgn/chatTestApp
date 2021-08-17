@@ -11,6 +11,7 @@ import { AngularFireModule } from '@angular/fire';
 import {environment} from "../environments/environment";
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import {AuthService} from "./services/auth.service";
 
 const routes: Routes = [
   {
@@ -36,7 +37,7 @@ const routes: Routes = [
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

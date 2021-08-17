@@ -7,12 +7,18 @@ import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import { RegFormComponent } from './reg-form/reg-form.component';
-import {AuthService} from "./auth.service";
+import {AuthService} from "../services/auth.service";
+import { StoreModule } from '@ngrx/store';
+import {authReducer} from "./reducers";
 
 const routes: Routes = [
   {
     path: 'reg',
     component: RegFormComponent
+  },
+  {
+    path: '',
+    component: LoginFormComponent
   }
 ];
 
@@ -23,19 +29,18 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild([{path: '', component: LoginFormComponent}]),
     ReactiveFormsModule,
     MatCardModule,
     MatInputModule,
     MatButtonModule,
     RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
+    StoreModule.forFeature('auth', authReducer),
   ],
   exports: [
     LoginFormComponent
   ],
-  providers: [
-    AuthService
-  ]
+  providers: []
+
 })
 export class AuthModule {
   static forRoot(): ModuleWithProviders<AuthModule> {
