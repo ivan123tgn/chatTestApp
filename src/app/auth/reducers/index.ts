@@ -5,12 +5,11 @@ import {
   createSelector,
   MetaReducer, on
 } from '@ngrx/store';
-import firebase from "firebase";
-import UserCredential = firebase.auth.UserCredential;
 import {AuthActions} from "../action-types";
+import {User} from "../models/user.model";
 
 export interface AuthState {
-  user: string | undefined
+  user: User | undefined
 }
 
 export const initialAuthState: AuthState = {
@@ -22,6 +21,11 @@ export const authReducer = createReducer(
   on(AuthActions.login, (state, action) => {
     return {
       user: action.user
+    }
+  }),
+  on(AuthActions.logout, (state, action) => {
+    return {
+      user: undefined
     }
   })
 )
