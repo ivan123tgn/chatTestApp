@@ -12,6 +12,8 @@ import {environment} from "../environments/environment";
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import {AuthService} from "./services/auth.service";
+import {metaReducers, reducers} from "./reducers";
+import {EffectsModule} from "@ngrx/effects";
 
 const routes: Routes = [
   {
@@ -34,8 +36,17 @@ const routes: Routes = [
     RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
     AuthModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
-    StoreModule.forRoot({}, {}),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks : {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+        strictActionSerializability: true,
+        strictStateSerializability:true
+      }
+    }),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    EffectsModule.forRoot([])
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
