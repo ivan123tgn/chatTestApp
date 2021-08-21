@@ -7,9 +7,10 @@ import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import { RegFormComponent } from './reg-form/reg-form.component';
-import {AuthService} from "../services/auth.service";
 import { StoreModule } from '@ngrx/store';
 import {authReducer} from "./reducers";
+import {EffectsModule} from "@ngrx/effects";
+import {AuthEffects} from "./auth.effects";
 
 const routes: Routes = [
   {
@@ -35,6 +36,7 @@ const routes: Routes = [
     MatButtonModule,
     RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
     StoreModule.forFeature('auth', authReducer),
+    EffectsModule.forFeature([AuthEffects])
   ],
   exports: [
     LoginFormComponent
