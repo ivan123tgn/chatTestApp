@@ -3,7 +3,7 @@ import {AuthService} from "../../services/auth.service";
 import {Observable, of} from "rxjs";
 import {select, Store} from "@ngrx/store";
 import {AppState} from "../../reducers";
-import {userEmail, userId} from "../../auth/auth-selectors";
+import {isLoggedIn, userEmail, userId} from "../../auth/auth-selectors";
 
 @Component({
   selector: 'app-user-info',
@@ -13,6 +13,7 @@ import {userEmail, userId} from "../../auth/auth-selectors";
 export class UserInfoComponent implements OnInit {
   userId$: Observable<any> = of('');
   email$: Observable<any> = of('');
+  isLoggedIn$: Observable<any> = of('');
 
   constructor(private authService: AuthService,
               private store: Store<AppState>) { }
@@ -25,6 +26,10 @@ export class UserInfoComponent implements OnInit {
     this.email$ = this.store
       .pipe(
         select(userEmail)
+      );
+    this.isLoggedIn$ = this.store
+      .pipe(
+        select(isLoggedIn)
       );
   }
 

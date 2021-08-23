@@ -14,11 +14,13 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import {AuthService} from "./services/auth.service";
 import {metaReducers, reducers} from "./reducers";
 import {EffectsModule} from "@ngrx/effects";
+import {AuthGuard} from "./auth/auth.guard";
 
 const routes: Routes = [
   {
     path: 'chat',
     loadChildren: () => import('./chat/chat.module').then(m => m.ChatModule),
+    canActivate: [AuthGuard]
   },
   {
     path: '**',
@@ -48,7 +50,7 @@ const routes: Routes = [
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([])
   ],
-  providers: [AuthService],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

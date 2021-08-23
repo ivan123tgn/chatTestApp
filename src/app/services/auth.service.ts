@@ -26,12 +26,12 @@ export class AuthService {
         console.log('логин', user);
         this.userId = user.uid;
         this.store.dispatch(login());
-        // this.userId$.next(user.uid);
+        localStorage.setItem('userId', this.userId);
       } else {
         console.log('разлогин');
         this.userId = '';
         this.store.dispatch(logout());
-        // this.userId$.next('');
+        localStorage.removeItem('userId');
       }
     });
 
@@ -55,9 +55,9 @@ export class AuthService {
 
   async login(email: string, password: string) {
     const authResult = await this.angularFireAuth.signInWithEmailAndPassword(email, password)
-      .then(user =>
-        this.router.navigate(['/chat'])
-      )
+      .then(user => {
+          this.router.navigate(['/chat']);
+      })
       .catch((err) => console.log(err.message));
   }
 

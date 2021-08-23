@@ -12,3 +12,10 @@ export const userEmail = createSelector(
   selectAuthState,
   auth =>  auth.user?.email
 );
+
+export const isLoggedIn = createSelector(
+  selectAuthState,
+  auth => !!auth.user
+)
+
+

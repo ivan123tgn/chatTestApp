@@ -1,3 +1,8 @@
-<p>ID: {{userId$ | async}}</p>
-<p>E-mail: {{email$ | async}}</p>
-<button mat-raised-button color="warn" (click)="signOut()">Logout</button>
+<mat-card>
+  <p>ID: {{userId$ | async}}</p>
+  <p>E-mail: {{email$ | async}}</p>
+  <p>isLoggedIn: {{isLoggedIn$ | async}}</p>
+  <button mat-raised-button color="warn" (click)="signOut()">Logout</button>
+</mat-card>
+<start-dialog></start-dialog>
+<dialog-list></dialog-list>

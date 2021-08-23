@@ -3,15 +3,29 @@ import { CommonModule } from '@angular/common';
 import { UserInfoComponent } from './user-info/user-info.component';
 import {RouterModule} from "@angular/router";
 import {MatButtonModule} from "@angular/material/button";
+import {MatCardModule} from "@angular/material/card";
+import { StartDialogComponent } from './start-dialog/start-dialog.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatInputModule} from "@angular/material/input";
+import { DialogListComponent } from './dialog-list/dialog-list.component';
+import { DialogItemComponent } from './dialog-item/dialog-item.component';
 
 @NgModule({
   declarations: [
-    UserInfoComponent
+    UserInfoComponent,
+    StartDialogComponent,
+    DialogListComponent,
+    DialogItemComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild([{path: '', component: UserInfoComponent}]),
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatInputModule
   ]
 })
 export class ChatModule {}

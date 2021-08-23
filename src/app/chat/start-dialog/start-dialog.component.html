@@ -1,0 +1,27 @@
+<mat-card>
+
+  <form [formGroup]="form" class="start-dialog-form">
+
+    <mat-form-field>
+
+      <input matInput
+             placeholder="To"
+             formControlName="to">
+
+    </mat-form-field>
+
+    <mat-form-field>
+
+      <mat-label>Textarea</mat-label>
+      <textarea matInput formControlName="message"></textarea>
+
+    </mat-form-field>
+
+    <button type="button" mat-raised-button color="primary"
+            [disabled]="!form.valid"
+            (click)="onDialogStart()">
+      Send
+    </button>
+
+  </form>
+</mat-card>
