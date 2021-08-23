@@ -1,4 +1,4 @@
 <mat-card>
-  <p>dialog-list works!</p>
+  <dialog-item *ngFor="let dialog of dialogs" [dialogData]="dialog"></dialog-item>
 </mat-card>
 

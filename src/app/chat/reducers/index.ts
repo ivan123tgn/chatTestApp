@@ -1,17 +1,31 @@
 import {
   ActionReducer,
   ActionReducerMap,
-  createFeatureSelector,
+  createFeatureSelector, createReducer,
   createSelector,
-  MetaReducer
+  MetaReducer, on
 } from '@ngrx/store';
+import {Dialog} from "../models/dialog.model";
+import {DialogsActions} from "../action-types";
 
-export const dialogsFeatureKey = 'dialogs';
-
-export interface State {
-
+export interface ChatState {
+  dialogs: Dialog [];
 }
 
-export const reducers: ActionReducerMap<State> = {
+export const initialDialogsState: ChatState = {
+  dialogs: []
+}
 
-};
+export const dialogsReducer = createReducer(
+  initialDialogsState,
+  on(DialogsActions.addDialog, (state, action) => {
+    return {
+      dialogs: [...state.dialogs, action.dialog]
+    }
+  }),
+  on(DialogsActions.allDialogsLoaded, (state, action) => {
+    return {
+      dialogs: action.dialogs
+    }
+  })
+)

@@ -1,7 +1,7 @@
 import {Message} from "./message.model";
 
 export interface Dialog {
-  between: string [];
+  between: (string|undefined) [];
   messages: Message[];
   id: string;
 }

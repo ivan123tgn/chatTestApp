@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import {select, Store} from "@ngrx/store";
+import {AppState} from "../../reducers";
+import {Observable} from "rxjs";
+import {Dialog} from "../models/dialog.model";
+import {allChatDialogs} from "../chat-selectors";
 
 @Component({
   selector: 'dialog-list',
@@ -7,9 +12,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DialogListComponent implements OnInit {
 
-  constructor() { }
+  dialogs$: Observable<Dialog[]>;
+  dialogs: Dialog [];
+
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
+    this.dialogs$ = this.store
+      .pipe(
+        select(allChatDialogs)
+      );
+    this.dialogs$.subscribe(dialogs => {
+      this.dialogs = dialogs;
+    });
   }
 
 }

@@ -1,1 +1,5 @@
-<p>dialog-item works!</p>
+<mat-card>
+  <p>From: {{dialogData.messages[dialogData.messages.length - 1].from}}</p>
+  <p>To: {{dialogData.messages[dialogData.messages.length - 1].to}}</p>
+  <p>Last message: {{dialogData.messages[dialogData.messages.length - 1].text}}</p>
+</mat-card>

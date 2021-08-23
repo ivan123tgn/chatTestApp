@@ -1,5 +1,5 @@
 export interface Message {
-  from: string;
+  from: string|undefined;
   to: string;
   text: string;
   id: string;

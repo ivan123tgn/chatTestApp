@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserInfoComponent } from './user-info/user-info.component';
-import {RouterModule} from "@angular/router";
+import {RouterModule, Routes} from "@angular/router";
 import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import { StartDialogComponent } from './start-dialog/start-dialog.component';
@@ -11,7 +11,19 @@ import {MatInputModule} from "@angular/material/input";
 import { DialogListComponent } from './dialog-list/dialog-list.component';
 import { DialogItemComponent } from './dialog-item/dialog-item.component';
 import { StoreModule } from '@ngrx/store';
-import * as fromDialogs from './reducers';
+import {dialogsReducer} from "./reducers";
+import {ChatService} from "./services/chat.service";
+import {EffectsModule} from "@ngrx/effects";
+import {ChatEffects} from "./chat.effects";
+import {DialogsResolver} from "./dialogs.resolver";
+
+export const chatRoutes: Routes = [{
+  path: '',
+  component: UserInfoComponent,
+  resolve: {
+   dialogs: DialogsResolver
+  }
+  }];
 
 @NgModule({
   declarations: [
@@ -22,13 +34,18 @@ import * as fromDialogs from './reducers';
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild([{path: '', component: UserInfoComponent}]),
+    RouterModule.forChild(chatRoutes),
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
-    StoreModule.forFeature(fromDialogs.dialogsFeatureKey, fromDialogs.reducers)
+    StoreModule.forFeature('chat', dialogsReducer),
+    EffectsModule.forFeature([ChatEffects])
+  ],
+  providers: [
+    ChatService,
+    DialogsResolver
   ]
 })
 export class ChatModule {}

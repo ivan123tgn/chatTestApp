@@ -1,3 +1,3 @@
-import * as DialogsActions from './dialogs.actions';
+import * as DialogsActions from './chat.actions';
 
 export{DialogsActions};

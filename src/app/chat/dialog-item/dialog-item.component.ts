@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Dialog} from "../models/dialog.model";
 
 @Component({
   selector: 'dialog-item',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dialog-item.component.css']
 })
 export class DialogItemComponent implements OnInit {
+
+  @Input()
+  dialogData: Dialog;
 
   constructor() { }
 
