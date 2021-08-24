@@ -1,4 +1,4 @@
 <mat-card>
-  <dialog-item *ngFor="let dialog of dialogs" [dialogData]="dialog"></dialog-item>
+  <dialog-item *ngFor="let dialog of dialogs" [dialogData]="dialog" [routerLink]="['dialog', dialog.id]"></dialog-item>
 </mat-card>
 

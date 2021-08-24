@@ -38,10 +38,14 @@ export class ChatService {
       );
   }
 
-  createMessageInDialog(allDialogs: Dialog[], dialogIndex: number, message: Message) {
-    let newDialogs: Dialog[] = JSON.parse(JSON.stringify(allDialogs));
-    newDialogs[dialogIndex].messages.push(message);
-    this.store.dispatch(addMessageToDialog({dialogs: newDialogs}));
+  createMessageInDialog(from: string|undefined, to: string, dialogIndex: number, dialogId: string, message: string) {
+    const newMessage: Message = {
+      from: from,
+      to: to,
+      text: message,
+      id: Date.now().toString()
+    };
+    this.store.dispatch(addMessageToDialog({dialogIndex: dialogIndex, dialogId: dialogId, message: newMessage}));
   }
 
 }

@@ -30,8 +30,11 @@ export const dialogsReducer = createReducer(
     }
   }),
   on(DialogsActions.addMessageToDialog, (state, action) => {
+    let newDialogs: Dialog [] = JSON.parse(JSON.stringify(state.dialogs));
+    newDialogs[action.dialogIndex].messages.push(action.message);
     return {
-      dialogs: action.dialogs
+      dialogs: newDialogs
     }
   })
 )
+

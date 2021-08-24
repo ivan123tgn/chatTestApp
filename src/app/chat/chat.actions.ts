@@ -18,6 +18,5 @@ export const allDialogsLoaded = createAction(
 
 export const addMessageToDialog = createAction(
   '[Start Dialog Component] Add Message To Existing Dialog',
-  props<{dialogs: Dialog[]}>()
-
+  props<{dialogIndex: number, dialogId: string, message: Message}>()
 )

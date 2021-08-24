@@ -4,6 +4,7 @@ import {AppState} from "../../reducers";
 import {Observable} from "rxjs";
 import {Dialog} from "../models/dialog.model";
 import {allChatDialogs} from "../chat-selectors";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'dialog-list',
@@ -15,7 +16,9 @@ export class DialogListComponent implements OnInit {
   dialogs$: Observable<Dialog[]>;
   dialogs: Dialog [];
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>,
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.dialogs$ = this.store

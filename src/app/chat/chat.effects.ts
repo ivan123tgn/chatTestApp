@@ -5,6 +5,8 @@ import {concatMap, map, tap} from "rxjs/operators";
 import {AngularFirestore} from "@angular/fire/firestore";
 import {ChatService} from "./services/chat.service";
 import {allDialogsLoaded} from "./chat.actions";
+import firebase from "firebase";
+import FieldValue = firebase.firestore.FieldValue;
 
 @Injectable()
 export class ChatEffects {
@@ -27,6 +29,20 @@ export class ChatEffects {
         concatMap(action => this.chatService.findAllDialogs()),
         map(dialogs => allDialogsLoaded({dialogs: dialogs}))
       )
+  )
+
+  addMessageToDialog$ = createEffect(() =>
+    this.actions$
+      .pipe(
+        ofType(DialogsActions.addMessageToDialog),
+        tap(action => {
+          this.afs.collection('dialogs').doc(action.dialogId).update({
+            messages: FieldValue.arrayUnion(action.message)
+          })
+            .then(() => console.log('Message added to existing dialog in Firestore!'))
+            .catch(err => console.log('Error', err.message))
+        })
+      ),{dispatch: false}
   )
 
   constructor(private actions$: Actions,

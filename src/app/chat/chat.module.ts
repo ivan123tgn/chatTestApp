@@ -16,21 +16,32 @@ import {ChatService} from "./services/chat.service";
 import {EffectsModule} from "@ngrx/effects";
 import {ChatEffects} from "./chat.effects";
 import {DialogsResolver} from "./dialogs.resolver";
+import { DialogInfoComponent } from './dialog-info/dialog-info.component';
+import { MessageListComponent } from './message-list/message-list.component';
+import { MessageItemComponent } from './message-item/message-item.component';
 
 export const chatRoutes: Routes = [{
   path: '',
   component: UserInfoComponent,
   resolve: {
    dialogs: DialogsResolver
+    }
+  },
+  {
+    path: 'dialog/:dialogId',
+    component: DialogInfoComponent
   }
-  }];
+];
 
 @NgModule({
   declarations: [
     UserInfoComponent,
     StartDialogComponent,
     DialogListComponent,
-    DialogItemComponent
+    DialogItemComponent,
+    DialogInfoComponent,
+    MessageListComponent,
+    MessageItemComponent
   ],
   imports: [
     CommonModule,

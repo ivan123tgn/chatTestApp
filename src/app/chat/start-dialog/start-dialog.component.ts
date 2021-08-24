@@ -52,13 +52,8 @@ export class StartDialogComponent implements OnInit {
     if (dialogIndex === -1) {
       this.chatService.createDialog(this.userId, this.form.value.to, this.form.value.message);
     } else {
-      const newMessage = {
-        from: this.userId,
-        to: this.form.value.to,
-        text: this.form.value.message,
-        id: Date.now().toString()
-      };
-      this.chatService.createMessageInDialog(this.userDialogs, dialogIndex, newMessage);
+      const dialogId = this.userDialogs[dialogIndex].id;
+      this.chatService.createMessageInDialog(this.userId, this.form.value.to, dialogIndex, dialogId, this.form.value.message);
     }
   }
 
