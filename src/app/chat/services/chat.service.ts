@@ -1,13 +1,13 @@
 import {Injectable} from "@angular/core";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../reducers";
-import {addDialog} from "../chat.actions";
+import {addDialog, addMessageToDialog} from "../chat.actions";
 import {AngularFirestore} from "@angular/fire/firestore";
 import {AuthService} from "../../services/auth.service";
 import {Dialog} from "../models/dialog.model";
 import {Observable, of} from "rxjs";
 import {map, tap} from "rxjs/operators";
-import firebase from "firebase";
+import {Message} from "../models/message.model";
 
 @Injectable()
 export class ChatService {
@@ -36,6 +36,12 @@ export class ChatService {
       .pipe(
         map(querySnapshot => querySnapshot.docs.map(doc => <Dialog>doc.data()))
       );
+  }
+
+  createMessageInDialog(allDialogs: Dialog[], dialogIndex: number, message: Message) {
+    let newDialogs: Dialog[] = JSON.parse(JSON.stringify(allDialogs));
+    newDialogs[dialogIndex].messages.push(message);
+    this.store.dispatch(addMessageToDialog({dialogs: newDialogs}));
   }
 
 }

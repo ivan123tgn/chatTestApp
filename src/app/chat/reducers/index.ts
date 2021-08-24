@@ -7,6 +7,7 @@ import {
 } from '@ngrx/store';
 import {Dialog} from "../models/dialog.model";
 import {DialogsActions} from "../action-types";
+import {deepCloneNode} from "@angular/cdk/drag-drop/clone-node";
 
 export interface ChatState {
   dialogs: Dialog [];
@@ -24,6 +25,11 @@ export const dialogsReducer = createReducer(
     }
   }),
   on(DialogsActions.allDialogsLoaded, (state, action) => {
+    return {
+      dialogs: action.dialogs
+    }
+  }),
+  on(DialogsActions.addMessageToDialog, (state, action) => {
     return {
       dialogs: action.dialogs
     }
