@@ -70,7 +70,6 @@ export class AuthService {
   }
 
   getUserData(): Observable<User|undefined> {
-    console.log(this.userId);
     return this.firestore.collection('users').doc<User>(this.userId).get()
       .pipe(
         map(snapshot => snapshot.data()),

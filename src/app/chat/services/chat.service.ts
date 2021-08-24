@@ -48,4 +48,11 @@ export class ChatService {
     this.store.dispatch(addMessageToDialog({dialogIndex: dialogIndex, dialogId: dialogId, message: newMessage}));
   }
 
+  findDialogById(id: string): Observable<Dialog> {
+    return this.afs.collection('dialogs').doc(id).get()
+      .pipe(
+        map(documentSnapshot => <Dialog>documentSnapshot.data())
+      );
+  }
+
 }

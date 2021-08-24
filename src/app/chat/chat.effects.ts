@@ -4,7 +4,7 @@ import {DialogsActions} from "./action-types";
 import {concatMap, map, tap} from "rxjs/operators";
 import {AngularFirestore} from "@angular/fire/firestore";
 import {ChatService} from "./services/chat.service";
-import {allDialogsLoaded} from "./chat.actions";
+import {allDialogsLoaded, dialogByIdLoaded} from "./chat.actions";
 import firebase from "firebase";
 import FieldValue = firebase.firestore.FieldValue;
 
@@ -43,6 +43,15 @@ export class ChatEffects {
             .catch(err => console.log('Error', err.message))
         })
       ),{dispatch: false}
+  )
+
+  loadDialogById$ = createEffect(() =>
+    this.actions$
+      .pipe(
+        ofType(DialogsActions.loadDialogById),
+        concatMap(action => this.chatService.findDialogById(action.dialogId)),
+        map(dialog => dialogByIdLoaded({dialog: dialog}))
+      )
   )
 
   constructor(private actions$: Actions,

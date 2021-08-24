@@ -35,6 +35,11 @@ export const dialogsReducer = createReducer(
     return {
       dialogs: newDialogs
     }
+  }),
+  on(DialogsActions.dialogByIdLoaded, (state, action) => {
+    return {
+      dialogs: [action.dialog]
+    }
   })
 )
 

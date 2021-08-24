@@ -20,3 +20,13 @@ export const addMessageToDialog = createAction(
   '[Start Dialog Component] Add Message To Existing Dialog',
   props<{dialogIndex: number, dialogId: string, message: Message}>()
 )
+
+export const loadDialogById = createAction(
+  '[Dialog Info Component] Load Particular Dialog',
+  props<{dialogId: string}>()
+)
+
+export const dialogByIdLoaded = createAction(
+  '[Load Particular Dialog Effect] Particular Dialog Loaded',
+  props<{dialog: Dialog}>()
+)
