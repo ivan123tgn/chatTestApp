@@ -1,3 +1,7 @@
-<mat-card>
-  <message-item *ngFor="let message of messages" [messageData]="message"></message-item>
-</mat-card>
+<ng-container *ngIf="initializer$ | async">
+  <ng-container *ngIf="messages$ | async as messages">
+    <mat-card>
+      <message-item *ngFor="let message of messages" [messageData]="message"></message-item>
+    </mat-card>
+  </ng-container>
+</ng-container>

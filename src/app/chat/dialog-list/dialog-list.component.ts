@@ -14,7 +14,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class DialogListComponent implements OnInit {
 
   dialogs$: Observable<Dialog[]>;
-  dialogs: Dialog [];
 
   constructor(private store: Store<AppState>,
               private router: Router,
@@ -25,9 +24,6 @@ export class DialogListComponent implements OnInit {
       .pipe(
         select(allChatDialogs)
       );
-    this.dialogs$.subscribe(dialogs => {
-      this.dialogs = dialogs;
-    });
   }
 
 }

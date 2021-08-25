@@ -3,8 +3,9 @@ import {Message} from "../models/message.model";
 import {select, Store} from "@ngrx/store";
 import {AppState} from "../../reducers";
 import {allChatDialogs, getDialogById} from "../chat-selectors";
-import {finalize, first, tap} from "rxjs/operators";
+import {finalize, first, map, tap} from "rxjs/operators";
 import {loadDialogById} from "../chat.actions";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'message-list',
@@ -14,7 +15,8 @@ import {loadDialogById} from "../chat.actions";
 export class MessageListComponent implements OnInit {
 
   loading = false;
-  messages: Message[];
+  messages$: Observable<Message[]>;
+  initializer$: Observable<any>;
 
   @Input()
   dialogId: string;
@@ -22,7 +24,7 @@ export class MessageListComponent implements OnInit {
   constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
-    this.store
+    this.initializer$ =this.store
       .pipe(
         select(getDialogById(this.dialogId)),
         tap(dialog => {
@@ -34,19 +36,14 @@ export class MessageListComponent implements OnInit {
         }),
         first(),
         finalize(() => this.loading = false)
-      )
-    .subscribe();
+      );
 
 
-    this.store
+    this.messages$ = this.store
       .pipe(
-        select(getDialogById(this.dialogId))
-      )
-      .subscribe(dialog => {
-        if(dialog) {
-         this.messages = dialog[0]?.messages;
-        }
-      });
+        select(getDialogById(this.dialogId)),
+        map(dialog => dialog[0]?.messages)
+      );
   }
 
 }

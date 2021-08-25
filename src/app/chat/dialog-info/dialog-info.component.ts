@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-dialog-info',
@@ -8,15 +10,17 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class DialogInfoComponent implements OnInit {
 
-  dialogId: string;
+  dialogId$: Observable<string>;
 
   constructor(private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.dialogId = params.dialogId;
-    });
+
+    this.dialogId$ = this.route.params
+      .pipe(
+        map(params => params.dialogId)
+      );
 
   }
 

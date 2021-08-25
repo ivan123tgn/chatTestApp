@@ -1,4 +1,5 @@
-<mat-card>
-  <dialog-item *ngFor="let dialog of dialogs" [dialogData]="dialog" [routerLink]="['dialog', dialog.id]"></dialog-item>
-</mat-card>
-
+<ng-container *ngIf="dialogs$ | async as dialogs">
+  <mat-card>
+    <dialog-item *ngFor="let dialog of dialogs" [dialogData]="dialog" [routerLink]="['dialog', dialog.id]"></dialog-item>
+  </mat-card>
+</ng-container>

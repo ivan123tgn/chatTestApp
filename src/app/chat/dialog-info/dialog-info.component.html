@@ -1,4 +1,6 @@
-<mat-card>
-  <message-list [dialogId]="dialogId"></message-list>
-  <button mat-raised-button color="primary" routerLink="/dialogs">Back to Dialogs</button>
-</mat-card>
+<ng-container *ngIf="dialogId$ | async as dialogId">
+  <mat-card>
+    <message-list [dialogId]="dialogId"></message-list>
+    <button mat-raised-button color="primary" routerLink="/dialogs">Back to Dialogs</button>
+  </mat-card>
+</ng-container>
