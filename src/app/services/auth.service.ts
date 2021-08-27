@@ -8,6 +8,7 @@ import {BehaviorSubject, from, Observable, of} from "rxjs";
 import {User} from "../auth/models/user.model";
 import {AngularFirestore} from "@angular/fire/firestore";
 import {map, tap} from "rxjs/operators";
+import firebase from "firebase";
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +58,14 @@ export class AuthService {
     const authResult = await this.angularFireAuth.signInWithEmailAndPassword(email, password)
       .then(user => {
           this.router.navigate(['/chat']);
+      })
+      .catch((err) => console.log(err.message));
+  }
+
+  loginGoogle() {
+    this.angularFireAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+      .then(user => {
+        this.router.navigate(['/chat']);
       })
       .catch((err) => console.log(err.message));
   }

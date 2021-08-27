@@ -11,6 +11,8 @@ import { StoreModule } from '@ngrx/store';
 import {authReducer} from "./reducers";
 import {EffectsModule} from "@ngrx/effects";
 import {AuthEffects} from "./auth.effects";
+import {MatTabsModule} from "@angular/material/tabs";
+import {MatIconModule} from "@angular/material/icon";
 
 const routes: Routes = [
   {
@@ -34,9 +36,11 @@ const routes: Routes = [
     MatCardModule,
     MatInputModule,
     MatButtonModule,
-    RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
+    RouterModule.forRoot(routes, {relativeLinkResolution: 'legacy'}),
     StoreModule.forFeature('auth', authReducer),
-    EffectsModule.forFeature([AuthEffects])
+    EffectsModule.forFeature([AuthEffects]),
+    MatTabsModule,
+    MatIconModule
   ],
   exports: [
     LoginFormComponent

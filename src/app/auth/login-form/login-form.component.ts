@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
+import {MatIconRegistry} from "@angular/material/icon";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-login-form',
@@ -32,6 +34,10 @@ export class LoginFormComponent implements OnInit {
 
   signIn() {
     this.auth.login(this.form.value.email, this.form.value.password);
+  }
+
+  googleSignIn() {
+    this.auth.loginGoogle();
   }
 
 }

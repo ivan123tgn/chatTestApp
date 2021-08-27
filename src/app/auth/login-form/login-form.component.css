@@ -1,7 +1,7 @@
 .login-page {
-  max-width: 400px;
+  max-width: 500px;
+  /*max-height: 280px;*/
   display: block;
-  margin: auto;
 }
 
 .login-form {
@@ -11,4 +11,22 @@
 
 button {
   margin: 5px 0;
+  font-size: 16px;
 }
+
+form {
+  margin-top: 20px;
+}
+
+.login-title {
+  margin: 20px 0;
+  color: black;
+  font-weight: 400;
+  text-align: center;
+}
+
+.login-methods {
+  margin-top: 30px;
+  width: 100%;
+}
+
