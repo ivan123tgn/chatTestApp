@@ -10,6 +10,7 @@ import {AngularFirestore} from "@angular/fire/firestore";
 import {map, tap} from "rxjs/operators";
 import firebase from "firebase";
 import UserCredential = firebase.auth.UserCredential;
+import {ToastrService} from "ngx-toastr";
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,8 @@ export class AuthService {
   constructor(private angularFireAuth: AngularFireAuth,
               private router: Router,
               private store: Store<AuthState>,
-              private firestore: AngularFirestore) {
+              private firestore: AngularFirestore,
+              private toastr: ToastrService) {
 
     this.angularFireAuth.onAuthStateChanged(user => {
       if (user) {
@@ -49,9 +51,10 @@ export class AuthService {
         };
         this.router.navigate(['/chat']);
         this.store.dispatch(createUser({user: userProfile}));
+        this.toastr.success('Registration is successful! 😎', 'Sign Up');
       })
       .catch((error) => {
-        console.log('Reg error', error.message);
+        this.toastr.error(error.message + '😡', 'Registration error!');
       });
   }
 
@@ -59,16 +62,18 @@ export class AuthService {
     const authResult = await this.angularFireAuth.signInWithEmailAndPassword(email, password)
       .then(user => {
           this.router.navigate(['/chat']);
+          this.toastr.success('Welcome to ChatApp 👌', 'Login is successful!');
       })
-      .catch((err) => console.log(err.message));
+      .catch((err) => this.toastr.error(err.message + '😡', 'Sign in error!'));
   }
 
   loginGoogle() {
     this.angularFireAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then(result => {
         this.checkUserData(result);
+        this.toastr.success('Welcome to ChatApp 🤟', 'Google login');
       })
-      .catch((err) => console.log(err.message));
+      .catch((err) => this.toastr.error(err.message + '😡', 'Google sign in error!'));
   }
 
   loginGithub() {
@@ -76,17 +81,19 @@ export class AuthService {
     this.angularFireAuth.signInWithPopup(provider)
       .then(result => {
         this.checkUserData(result);
+        this.toastr.success('Welcome to ChatApp 💪', 'GitHub login');
       })
-      .catch((err) => console.log(err.message));
+      .catch((err) => this.toastr.error(err.message + '😡', 'GitHub sign in error!'));
 
   }
 
   logout() {
     this.angularFireAuth.signOut()
-      .then(user =>
-        this.router.navigate([''])
-      )
-      .catch(err => console.log(err.message));
+      .then(user => {
+          this.router.navigate(['']);
+          this.toastr.warning('Come back soon! 😍');
+      })
+      .catch(err => this.toastr.error(err.message + '😡', 'Logout error!'));
   }
 
   getUserData(): Observable<User> {

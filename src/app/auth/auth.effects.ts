@@ -6,6 +6,7 @@ import {AngularFirestore} from "@angular/fire/firestore";
 import {AngularFireAuth} from "@angular/fire/auth";
 import {AuthService} from "../services/auth.service";
 import {userDataLoaded} from "./auth.actions";
+import {ToastrService} from "ngx-toastr";
 
 @Injectable()
 export class AuthEffects {
@@ -16,8 +17,8 @@ export class AuthEffects {
         ofType(AuthActions.createUser),
         tap(action => {
           this.firestore.collection('users').doc(action.user?.id).set(action.user)
-            .then(() => console.log('Profile is created!'))
-            .catch(err => console.log('Error', err.message))
+            .then(() => this.toastr.info('Profile is created! 🦁'))
+            .catch(err => this.toastr.info(err.message  + '😡', 'Error!'))
         })
       ), {dispatch: false}
   )
@@ -34,6 +35,7 @@ export class AuthEffects {
   constructor(private actions$: Actions,
               private firestore: AngularFirestore,
               private auth: AngularFireAuth,
-              private authService: AuthService) {}
+              private authService: AuthService,
+              private toastr: ToastrService) {}
 
 }

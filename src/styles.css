@@ -14,3 +14,13 @@ body {
 mat-card {
   border: 1px white solid;
 }
+
+.toast-container .ngx-toastr {
+  font-size: 18px;
+  line-height: 1.5;
+  font-family: "Droid Sans Mono", sans-serif;
+}
+
+.smile {
+  font-size: 20px;
+}
