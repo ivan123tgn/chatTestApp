@@ -7,7 +7,7 @@ export const login = createAction(
 
 export const userDataLoaded = createAction(
   '[Load User Effect] User Data Loaded',
-  props<{user: User | undefined}> ()
+  props<{user: User}> ()
 )
 
 export const logout = createAction(
@@ -16,5 +16,5 @@ export const logout = createAction(
 
 export const createUser = createAction(
   '[Reg Form] User Creation',
-  props<{user: User | undefined}> ()
+  props<{user: User}> ()
 )

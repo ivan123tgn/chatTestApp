@@ -11,6 +11,7 @@ import {Router} from "@angular/router";
 export class RegFormComponent implements OnInit {
 
   form: FormGroup;
+  hide = true;
 
   constructor(
     private fb: FormBuilder,
@@ -19,8 +20,8 @@ export class RegFormComponent implements OnInit {
 
     this.form = fb.group({
       name: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      password: ['', [Validators.required]]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
 
   }

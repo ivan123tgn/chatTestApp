@@ -13,6 +13,7 @@ import {DomSanitizer} from "@angular/platform-browser";
 export class LoginFormComponent implements OnInit {
 
   form: FormGroup;
+  hide = true;
 
   constructor(
     private fb: FormBuilder,
@@ -20,7 +21,7 @@ export class LoginFormComponent implements OnInit {
     private router: Router) {
 
     this.form = fb.group({
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     });
 
@@ -38,6 +39,10 @@ export class LoginFormComponent implements OnInit {
 
   googleSignIn() {
     this.auth.loginGoogle();
+  }
+
+  githubSignIn() {
+    this.auth.loginGithub();
   }
 
 }

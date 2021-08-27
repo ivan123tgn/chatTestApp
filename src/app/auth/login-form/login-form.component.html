@@ -1,68 +1,74 @@
-<mat-card class="login-page">
+<div class="container">
 
-  <mat-card-title class="login-title">Login to ChatApp</mat-card-title>
+  <h1 class="login-title">Welcome to ChatApp<mat-icon class="title-icon">chat</mat-icon></h1>
+  <h3 class="login-title secondary">Please, login or register to continue.</h3>
 
-  <mat-card-content>
-    <mat-tab-group>
+  <mat-card class="login-page">
+    <mat-card-content>
+      <mat-tab-group>
 
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <mat-icon>mail</mat-icon>
-        </ng-template>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon>mail</mat-icon>
+          </ng-template>
 
-        <form [formGroup]="form" class="login-form">
+          <form [formGroup]="form" class="login-form">
 
-          <mat-form-field>
+            <mat-form-field appearance="fill">
 
-            <input matInput type="email"
-                   placeholder="Email"
-                   formControlName="email"
-                   ngModel
-                   name="email"
-                   email="true">
+              <mat-label>Enter your email</mat-label>
+              <input matInput placeholder="pat@example.com" formControlName="email" required>
 
-          </mat-form-field>
+            </mat-form-field>
 
-          <mat-form-field>
+            <mat-form-field appearance="fill">
 
-            <input matInput type="password"
-                   placeholder="Password"
-                   formControlName="password">
+              <mat-label>Enter your password</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
 
-          </mat-form-field>
+            </mat-form-field>
 
-          <button type="button" mat-raised-button color="primary"
-                  (click)="signIn()"
-                  [disabled]="!form.valid">Login</button>
+            <button type="button" mat-raised-button color="primary"
+                    (click)="signIn()"
+                    [disabled]="!form.valid">Login with e-mail/password</button>
 
-          <button type="button" mat-button color="accent" routerLink="/reg">
-            Registration
+            <button type="button" mat-button color="accent" routerLink="/reg">
+              Registration
+            </button>
+
+          </form>
+        </mat-tab>
+
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <img src="assets/icons/google-icon.svg"/>
+          </ng-template>
+          <button type="button"
+                  mat-raised-button
+                  color="primary"
+                  class="login-methods"
+                  (click)="googleSignIn()">
+            Login with Google
           </button>
+        </mat-tab>
 
-        </form>
-      </mat-tab>
+        <mat-tab label="GitHub">
+          <ng-template mat-tab-label>
+            <img src="assets/icons/github-icon.svg" height="30" width="30"/>
+          </ng-template>
+          <button type="button"
+                  mat-raised-button
+                  color="primary"
+                  class="login-methods"
+                  (click)="githubSignIn()">
+            Login with GitHub
+          </button>
+        </mat-tab>
 
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <img src="assets/icons/google-icon.svg"/>
-        </ng-template>
-        <button type="button"
-                mat-raised-button
-                color="primary"
-                class="login-methods"
-                (click)="googleSignIn()">
-          Login with Google
-        </button>
-      </mat-tab>
-
-      <mat-tab label="GitHub">
-        <ng-template mat-tab-label>
-          <img src="assets/icons/github-icon.svg" height="30" width="30"/>
-        </ng-template>
-        Content 3
-      </mat-tab>
-
-    </mat-tab-group>
-  </mat-card-content>
-
-</mat-card>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</div>

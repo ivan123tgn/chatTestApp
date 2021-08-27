@@ -4,11 +4,12 @@ import {Router} from "@angular/router";
 import {Store} from "@ngrx/store";
 import {createUser, login, logout} from "../auth/auth.actions";
 import {AuthState} from "../auth/reducers";
-import {BehaviorSubject, from, Observable, of} from "rxjs";
-import {User} from "../auth/models/user.model";
+import {Observable} from "rxjs";
+import {User, userUndefined} from "../auth/models/user.model";
 import {AngularFirestore} from "@angular/fire/firestore";
 import {map, tap} from "rxjs/operators";
 import firebase from "firebase";
+import UserCredential = firebase.auth.UserCredential;
 
 @Injectable({
   providedIn: 'root'
@@ -40,11 +41,11 @@ export class AuthService {
 
   mailPasswordReg(email: string, password: string) {
     this.angularFireAuth.createUserWithEmailAndPassword(email, password)
-      .then(user => {
+      .then(result => {
         const userProfile = {
-          id: user.user?.uid,
-          email: email,
-          regDate: Date.now().toString()
+          id: result.user?.uid || 'unknown',
+          email: email || 'unknown',
+          regDate: Date.now()
         };
         this.router.navigate(['/chat']);
         this.store.dispatch(createUser({user: userProfile}));
@@ -64,10 +65,20 @@ export class AuthService {
 
   loginGoogle() {
     this.angularFireAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then(user => {
-        this.router.navigate(['/chat']);
+      .then(result => {
+        this.checkUserData(result);
       })
       .catch((err) => console.log(err.message));
+  }
+
+  loginGithub() {
+    const provider = new firebase.auth.GithubAuthProvider();
+    this.angularFireAuth.signInWithPopup(provider)
+      .then(result => {
+        this.checkUserData(result);
+      })
+      .catch((err) => console.log(err.message));
+
   }
 
   logout() {
@@ -78,11 +89,26 @@ export class AuthService {
       .catch(err => console.log(err.message));
   }
 
-  getUserData(): Observable<User|undefined> {
+  getUserData(): Observable<User> {
     return this.firestore.collection('users').doc<User>(this.userId).get()
       .pipe(
-        map(snapshot => snapshot.data()),
+        map(snapshot => snapshot.data() || userUndefined),
         tap(data => console.log(data))
       );
+  }
+
+  checkUserData(result: UserCredential) {
+    this.firestore.collection('users').doc<User>(this.userId).get().toPromise()
+      .then(doc => {
+        if (!doc.exists) {
+          const userProfile = {
+            id: result.user?.uid || 'unknown',
+            email: result.user?.email || 'unknown',
+            regDate: Date.now()
+          };
+          this.store.dispatch(createUser({user: userProfile}));
+        }
+        this.router.navigate(['/chat']);
+      });
   }
 }

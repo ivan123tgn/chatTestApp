@@ -10,7 +10,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~12.2.0",
+    "@angular/animations": "^12.2.3",
     "@angular/cdk": "^12.2.1",
     "@angular/common": "~12.2.0",
     "@angular/compiler": "~12.2.0",
@@ -26,6 +26,7 @@
     "@ngrx/store-devtools": "^12.4.0",
     "clone": "^2.1.2",
     "firebase": "^8.9.1",
+    "ngx-toastr": "^14.1.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

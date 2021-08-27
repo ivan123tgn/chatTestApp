@@ -1,40 +1,48 @@
-<mat-card class="reg-page">
-  <mat-card-title>ChatApp Registration</mat-card-title>
-  <mat-card-content>
-    <form [formGroup]="form" class="reg-form">
+<div class="container">
 
-      <mat-form-field>
+  <h1 class="reg-title">ChatApp <mat-icon class="title-icon">chat</mat-icon> Registration</h1>
+  <h3 class="reg-title secondary">Please, complete the form:</h3>
 
-        <input matInput type="text"
-               placeholder="Name"
-               formControlName="name">
+  <mat-card class="reg-page">
+    <mat-card-content>
+      <form [formGroup]="form" class="reg-form">
 
-      </mat-form-field>
+        <mat-form-field appearance="fill">
 
-      <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput type="text"
+                 formControlName="name">
 
-        <input matInput type="email"
-               placeholder="Email"
-               formControlName="email">
+        </mat-form-field>
 
-      </mat-form-field>
+        <mat-form-field appearance="fill">
 
-      <mat-form-field>
+          <mat-label>E-mail</mat-label>
+          <input matInput type="email"
+                 formControlName="email">
 
-        <input matInput type="password"
-               placeholder="Password"
-               formControlName="password">
+        </mat-form-field>
 
-      </mat-form-field>
+        <mat-form-field appearance="fill">
 
-      <button type="button" mat-raised-button color="primary"
-              (click)="signUp()"
-              [disabled]="!form.valid">Sign Up</button>
+          <mat-label>Password</mat-label>
+          <input [type]="hide ? 'password' : 'text'" matInput type="password"
+                 formControlName="password">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
 
-      <button type="button" mat-button color="warn" routerLink="/">Back to Login</button>
+        </mat-form-field>
+
+        <button type="button" mat-raised-button color="primary"
+                (click)="signUp()"
+                [disabled]="!form.valid">Sign Up</button>
+
+        <button type="button" mat-button color="warn" routerLink="/">Back to Login</button>
 
 
-    </form>
-  </mat-card-content>
-</mat-card>
+      </form>
+    </mat-card-content>
+  </mat-card>
 
+</div>

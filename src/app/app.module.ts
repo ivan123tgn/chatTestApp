@@ -15,6 +15,7 @@ import {AuthService} from "./services/auth.service";
 import {metaReducers, reducers} from "./reducers";
 import {EffectsModule} from "@ngrx/effects";
 import {AuthGuard} from "./auth/auth.guard";
+import {ToastrModule} from "ngx-toastr";
 
 const routes: Routes = [
   {
@@ -48,7 +49,8 @@ const routes: Routes = [
       }
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([])
+    EffectsModule.forRoot([]),
+    ToastrModule.forRoot()
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]

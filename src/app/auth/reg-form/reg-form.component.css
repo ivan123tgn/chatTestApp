@@ -1,7 +1,17 @@
+.container {
+  height: 100%;
+  width: 100%;
+  background-image: url("src/assets/backgrounds/reg-background.jpg");
+  background-attachment: fixed;
+  background-size: cover;
+}
+
 .reg-page {
-  max-width: 400px;
+  max-width: 500px;
   display: block;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 7vh;
 }
 
 .reg-form {
@@ -11,4 +21,30 @@
 
 button {
   margin: 5px 0;
+  font-size: 18px;
+}
+
+.title-icon {
+  font-size: 40px;
+  height: 40px;
+  width: 40px;
+}
+
+.reg-title {
+  margin: 0;
+  padding-top: 40px;
+  text-align: center;
+  font-size: 48px;
+  line-height: 1.5;
+  color: white;
+  text-shadow: 3px 3px 20px #ff4081,
+              -2px 1px 30px #ff4081;
+}
+
+.reg-title.secondary {
+  font-size: 26px;
+}
+
+form {
+  font-size: 16px;
 }
