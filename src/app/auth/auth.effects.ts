@@ -17,8 +17,8 @@ export class AuthEffects {
         ofType(AuthActions.createUser),
         tap(action => {
           this.firestore.collection('users').doc(action.user?.id).set(action.user)
-            .then(() => this.toastr.info('Profile is created! 🦁'))
-            .catch(err => this.toastr.info(err.message  + '😡', 'Error!'))
+            .then(() => this.toastr.info('Profile is created!'))
+            .catch(err => this.toastr.info(err.message, 'Error!'))
         })
       ), {dispatch: false}
   )
@@ -30,6 +30,18 @@ export class AuthEffects {
         concatMap(action => this.authService.getUserData()),
         map(userData => userDataLoaded({user: userData}))
       )
+  )
+
+  addAvatar$ = createEffect(() =>
+    this.actions$
+      .pipe(
+        ofType(AuthActions.addProfileImage),
+        tap(action => {
+          this.firestore.collection('users').doc(action.userId).update({'avatarUrl': action.avatarUrl})
+            .then(() => this.toastr.info('Avatar is updated!'))
+            .catch(err => this.toastr.info(err.message, 'Error!'))
+        })
+      ), {dispatch: false}
   )
 
   constructor(private actions$: Actions,

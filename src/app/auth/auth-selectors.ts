@@ -16,6 +16,12 @@ export const userEmail = createSelector(
 export const isLoggedIn = createSelector(
   selectAuthState,
   auth => !!auth.user
-)
+);
+
+export const avatar = createSelector(
+  selectAuthState,
+  auth => auth.user?.avatarUrl
+);
+
 
 

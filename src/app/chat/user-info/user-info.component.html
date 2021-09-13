@@ -1,4 +1,8 @@
-<mat-card>
+<mat-card class="user-card">
+  <ng-container *ngIf="avatarUrl$|async as avatarUrl">
+    <img class="avatar-image" [src]=avatarUrl>
+    <button mat-mini-fab color="primary" (click)="openAddImageDialog()"><mat-icon>add</mat-icon></button>
+  </ng-container>
   <p>ID: {{userId$ | async}}</p>
   <p>E-mail: {{email$ | async}}</p>
   <p>isLoggedIn: {{isLoggedIn$ | async}}</p>

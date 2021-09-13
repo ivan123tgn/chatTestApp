@@ -19,6 +19,9 @@ import {DialogsResolver} from "./dialogs.resolver";
 import { DialogInfoComponent } from './dialog-info/dialog-info.component';
 import { MessageListComponent } from './message-list/message-list.component';
 import { MessageItemComponent } from './message-item/message-item.component';
+import {MatIconModule} from "@angular/material/icon";
+import { AddImageDialogComponent } from './user-info/add-image-dialog/add-image-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 export const chatRoutes: Routes = [{
   path: '',
@@ -41,19 +44,22 @@ export const chatRoutes: Routes = [{
     DialogItemComponent,
     DialogInfoComponent,
     MessageListComponent,
-    MessageItemComponent
+    MessageItemComponent,
+    AddImageDialogComponent
   ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(chatRoutes),
-    MatButtonModule,
-    MatCardModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    StoreModule.forFeature('chat', dialogsReducer),
-    EffectsModule.forFeature([ChatEffects])
-  ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(chatRoutes),
+        MatButtonModule,
+        MatCardModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        StoreModule.forFeature('chat', dialogsReducer),
+        EffectsModule.forFeature([ChatEffects]),
+        MatIconModule,
+        MatDialogModule
+    ],
   providers: [
     ChatService,
     DialogsResolver

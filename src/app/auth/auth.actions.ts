@@ -18,3 +18,8 @@ export const createUser = createAction(
   '[Reg Form] User Creation',
   props<{user: User}> ()
 )
+
+export const addProfileImage = createAction(
+  '[Add Image Dialog] User Avatar Added',
+  props<{userId: string, avatarUrl: string}> ()
+)

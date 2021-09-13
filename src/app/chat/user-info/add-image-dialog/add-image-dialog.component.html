@@ -1,0 +1,8 @@
+<input type="file"
+       id="file"
+       #userPhoto
+       (change)="onFileSelected($event)"
+       name="image"
+       autocomplete="off"/>
+<button mat-raised-button color="primary" (click)="downloadAvatar()">Upload</button>
+<button mat-raised-button color="warn" (click)="closeDialog()">Back</button>

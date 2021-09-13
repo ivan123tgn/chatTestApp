@@ -47,14 +47,15 @@ export class AuthService {
         const userProfile = {
           id: result.user?.uid || 'unknown',
           email: email || 'unknown',
-          regDate: Date.now()
+          regDate: Date.now(),
+          avatarUrl: 'assets/user-info/default-avatar.jpg'
         };
         this.router.navigate(['/chat']);
         this.store.dispatch(createUser({user: userProfile}));
-        this.toastr.success('Registration is successful! 😎', 'Sign Up');
+        this.toastr.success('Registration is successful!');
       })
       .catch((error) => {
-        this.toastr.error(error.message + '😡', 'Registration error!');
+        this.toastr.error(error.message, 'Registration error!');
       });
   }
 
@@ -62,18 +63,18 @@ export class AuthService {
     const authResult = await this.angularFireAuth.signInWithEmailAndPassword(email, password)
       .then(user => {
           this.router.navigate(['/chat']);
-          this.toastr.success('Welcome to ChatApp 👌', 'Login is successful!');
+          this.toastr.success('Welcome to ChatApp!');
       })
-      .catch((err) => this.toastr.error(err.message + '😡', 'Sign in error!'));
+      .catch((err) => this.toastr.error(err.message, 'Sign in error!'));
   }
 
   loginGoogle() {
     this.angularFireAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then(result => {
         this.checkUserData(result);
-        this.toastr.success('Welcome to ChatApp 🤟', 'Google login');
+        this.toastr.success('Welcome to ChatApp!');
       })
-      .catch((err) => this.toastr.error(err.message + '😡', 'Google sign in error!'));
+      .catch((err) => this.toastr.error(err.message, 'Google sign in error!'));
   }
 
   loginGithub() {
@@ -81,9 +82,9 @@ export class AuthService {
     this.angularFireAuth.signInWithPopup(provider)
       .then(result => {
         this.checkUserData(result);
-        this.toastr.success('Welcome to ChatApp 💪', 'GitHub login');
+        this.toastr.success('Welcome to ChatApp!');
       })
-      .catch((err) => this.toastr.error(err.message + '😡', 'GitHub sign in error!'));
+      .catch((err) => this.toastr.error(err.message, 'GitHub sign in error!'));
 
   }
 
@@ -91,9 +92,8 @@ export class AuthService {
     this.angularFireAuth.signOut()
       .then(user => {
           this.router.navigate(['']);
-          this.toastr.warning('Come back soon! 😍');
       })
-      .catch(err => this.toastr.error(err.message + '😡', 'Logout error!'));
+      .catch(err => this.toastr.error(err.message, 'Logout error!'));
   }
 
   getUserData(): Observable<User> {
@@ -111,7 +111,8 @@ export class AuthService {
           const userProfile = {
             id: result.user?.uid || 'unknown',
             email: result.user?.email || 'unknown',
-            regDate: Date.now()
+            regDate: Date.now(),
+            avatarUrl: 'assets/user-info/default-avatar.jpg'
           };
           this.store.dispatch(createUser({user: userProfile}));
         }

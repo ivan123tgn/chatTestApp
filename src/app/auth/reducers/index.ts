@@ -37,5 +37,12 @@ export const authReducer = createReducer(
     return {
       user: action.user
     }
+  }),
+  on(AuthActions.addProfileImage, (state, action) => {
+    let newUser: User = JSON.parse(JSON.stringify(state.user));
+    newUser.avatarUrl = action.avatarUrl;
+    return {
+      user: newUser
+    }
   })
 )

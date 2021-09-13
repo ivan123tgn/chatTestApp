@@ -16,6 +16,7 @@ import {metaReducers, reducers} from "./reducers";
 import {EffectsModule} from "@ngrx/effects";
 import {AuthGuard} from "./auth/auth.guard";
 import {ToastrModule} from "ngx-toastr";
+import {AngularFireStorageModule} from "@angular/fire/storage";
 
 const routes: Routes = [
   {
@@ -50,7 +51,8 @@ const routes: Routes = [
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([]),
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    AngularFireStorageModule
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
