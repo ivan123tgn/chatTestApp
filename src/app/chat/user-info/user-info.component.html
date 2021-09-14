@@ -6,6 +6,7 @@
   <p>ID: {{userId$ | async}}</p>
   <p>E-mail: {{email$ | async}}</p>
   <p>isLoggedIn: {{isLoggedIn$ | async}}</p>
+  <button mat-raised-button color="primary" routerLink="/todo-list">Todo List</button>
   <button mat-raised-button color="warn" (click)="signOut()">Logout</button>
 </mat-card>
 <start-dialog></start-dialog>
