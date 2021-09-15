@@ -17,6 +17,8 @@ import {EffectsModule} from "@ngrx/effects";
 import {AuthGuard} from "./auth/auth.guard";
 import {ToastrModule} from "ngx-toastr";
 import {AngularFireStorageModule} from "@angular/fire/storage";
+import {EntityDataModule} from "@ngrx/data";
+import {HttpClient, HttpClientModule, HttpHandler} from "@angular/common/http";
 
 const routes: Routes = [
   {
@@ -57,7 +59,9 @@ const routes: Routes = [
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([]),
     ToastrModule.forRoot(),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    EntityDataModule.forRoot({}),
+    HttpClientModule
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
